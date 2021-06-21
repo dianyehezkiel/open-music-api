@@ -9,7 +9,7 @@ const mapDBToModel = ({
   inserted_at,
   updated_at,
 }) => ({
-  songId: song_id,
+  id: song_id,
   title,
   year,
   performer,

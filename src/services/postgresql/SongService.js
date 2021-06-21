@@ -27,15 +27,15 @@ class SongsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows[0].id) {
+    if (!result.rows[0].song_id) {
       throw new InvariantError('Lagu gagal ditambahkan');
     }
 
-    return result.rows[0].id;
+    return result.rows[0].song_id;
   }
 
   async getSongs() {
-    const result = await this._pool.query('SELECT * FROM songs');
+    const result = await this._pool.query('SELECT song_id, title, performer FROM songs');
 
     return result.rows.map(mapDBToModel);
   }
