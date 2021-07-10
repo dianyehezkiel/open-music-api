@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 const mapDBToModel = ({
-  song_id,
+  id,
   title,
   year,
   performer,
@@ -9,7 +9,7 @@ const mapDBToModel = ({
   inserted_at,
   updated_at,
 }) => ({
-  id: song_id,
+  id,
   title,
   year,
   performer,

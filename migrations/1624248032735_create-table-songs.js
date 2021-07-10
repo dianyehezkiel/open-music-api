@@ -4,7 +4,7 @@ exports.shorthands = undefined;
 
 exports.up = (pgm) => {
   pgm.createTable('songs', {
-    song_id: {
+    id: {
       type: 'VARCHAR(50)',
       primaryKey: true,
     },
