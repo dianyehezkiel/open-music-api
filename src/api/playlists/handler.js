@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const ClientError = require('../../exceptions/ClientError');
 
 class PlaylistsHandler {
@@ -23,11 +24,11 @@ class PlaylistsHandler {
       this._validator.validatePlaylistPayload(request.payload);
 
       const {name} = request.payload;
-      const {id: owner} = request.auth.credentials;
+      const {id: credentialId} = request.auth.credentials;
 
       const playlistId = await this._playlistsService.addPlaylist({
         name,
-        owner});
+        userId: credentialId});
 
       const response = h.response({
         status: 'success',
@@ -61,9 +62,9 @@ class PlaylistsHandler {
 
   async getPlaylistsHandler(request, h) {
     try {
-      const {id: owner} = request.auth.credentials;
+      const {id: credentialId} = request.auth.credentials;
 
-      const playlists = await this._playlistsService.getPlaylists(owner);
+      const playlists = await this._playlistsService.getPlaylists(credentialId);
 
       return {
         status: 'success',
@@ -94,9 +95,9 @@ class PlaylistsHandler {
   async deletePlaylistByIdHandler(request, h) {
     try {
       const {playlistId} = request.params;
-      const {id: owner} = request.auth.credentials;
+      const {id: credentialId} = request.auth.credentials;
 
-      await this._playlistsService.verifyPlaylistOwner(playlistId, owner);
+      await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId);
 
       await this._playlistsService.deletePlaylistById(playlistId);
 
@@ -130,9 +131,9 @@ class PlaylistsHandler {
 
       const {songId} = request.payload;
       const {playlistId} = request.params;
-      const {id: owner} = request.auth.credentials;
+      const {id: credentialId} = request.auth.credentials;
 
-      await this._playlistsService.verifyPlaylistOwner(playlistId, owner);
+      await this._playlistsService.verifyPlaylistAccess(playlistId, credentialId);
 
       await this._playlistSongsService.addSongToPlaylist(playlistId, songId);
 
@@ -166,9 +167,9 @@ class PlaylistsHandler {
   async getSongsInPlaylistHandler(request, h) {
     try {
       const {playlistId} = request.params;
-      const {id: owner} = request.auth.credentials;
+      const {id: credentialId} = request.auth.credentials;
 
-      await this._playlistsService.verifyPlaylistOwner(playlistId, owner);
+      await this._playlistsService.verifyPlaylistAccess(playlistId, credentialId);
 
       const songs = await this._playlistSongsService
           .getSongsInPlaylist(playlistId);
@@ -208,9 +209,9 @@ class PlaylistsHandler {
 
       const {playlistId} = request.params;
       const {songId} = request.payload;
-      const {id: owner} = request.auth.credentials;
+      const {id: credentialId} = request.auth.credentials;
 
-      await this._playlistsService.verifyPlaylistOwner(playlistId, owner);
+      await this._playlistsService.verifyPlaylistAccess(playlistId, credentialId);
 
       // eslint-disable-next-line max-len
       await this._playlistSongsService.deleteSongFromPlaylist(playlistId, songId);
