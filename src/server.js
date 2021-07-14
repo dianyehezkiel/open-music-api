@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 // dotenv and Hapi
 require('dotenv').config();
 const Hapi = require('@hapi/hapi');
@@ -55,7 +54,6 @@ const init = async () => {
     },
   ]);
 
-  // mendefinisikan strategy autentikasi jwt
   server.auth.strategy('openmusic_jwt', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {

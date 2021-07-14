@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const ClientError = require('../../exceptions/ClientError');
 
 class PlaylistsHandler {
@@ -15,7 +14,6 @@ class PlaylistsHandler {
     this.deletePlaylistByIdHandler = this.deletePlaylistByIdHandler.bind(this);
     this.postSongToPlaylistHandler = this.postSongToPlaylistHandler.bind(this);
     this.getSongsInPlaylistHandler = this.getSongsInPlaylistHandler.bind(this);
-    // eslint-disable-next-line max-len
     this.deleteSongFromPlaylistHandler = this.deleteSongFromPlaylistHandler.bind(this);
   }
 
@@ -73,15 +71,6 @@ class PlaylistsHandler {
         },
       };
     } catch (error) {
-      if (error instanceof ClientError) {
-        const response = h.response({
-          status: 'fail',
-          message: error.message,
-        });
-        response.code(error.statusCode);
-        return response;
-      }
-
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
@@ -213,7 +202,6 @@ class PlaylistsHandler {
 
       await this._playlistsService.verifyPlaylistAccess(playlistId, credentialId);
 
-      // eslint-disable-next-line max-len
       await this._playlistSongsService.deleteSongFromPlaylist(playlistId, songId);
 
       return {

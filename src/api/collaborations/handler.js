@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const ClientError = require('../../exceptions/ClientError');
 
 class CollaborationsHandler {
@@ -40,7 +39,7 @@ class CollaborationsHandler {
         response.code(error.statusCode);
         return response;
       }
-      // Server ERROR!
+
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
@@ -80,7 +79,7 @@ class CollaborationsHandler {
         response.code(error.statusCode);
         return response;
       }
-      // Server ERROR!
+
       const response = h.response({
         status: 'error',
         message: 'Maaf, terjadi kegagalan pada server kami.',
