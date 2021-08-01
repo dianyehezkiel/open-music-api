@@ -105,3 +105,6 @@ dist
 
 # Package Lock
 package-lock.json
+
+# Upload directory
+src/api/uploads/file
